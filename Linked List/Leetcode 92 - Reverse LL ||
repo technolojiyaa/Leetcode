@@ -1,0 +1,57 @@
+class Solution {
+public:
+
+    ListNode* reversefunt(ListNode* leftHead) {
+        if(leftHead == NULL || leftHead->next == NULL) {
+            return leftHead;
+        }
+
+        ListNode* newHead = reversefunt(leftHead->next);
+        ListNode* front = leftHead->next;
+        front->next = leftHead;
+        leftHead->next = NULL;
+
+        return newHead;
+    }
+
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+
+        if(head == NULL) {
+            return head;
+        }
+
+        if(left == right) {
+            return head;
+        }
+
+        ListNode* beforeLeft = NULL;
+        ListNode* leftHead = head;
+
+        for(int i = 1; i < left; i++) {
+            beforeLeft = leftHead;
+            leftHead = leftHead->next;
+        }
+
+        ListNode* rightHead = leftHead;
+
+        for(int i = left; i < right; i++) {
+            rightHead = rightHead->next;
+        }
+
+        ListNode* afterRight = rightHead->next;
+        rightHead->next = NULL;
+
+        ListNode* newHead = reversefunt(leftHead);
+
+        if(beforeLeft != NULL) {
+            beforeLeft->next = newHead;
+        }
+        else {
+            head = newHead;
+        }
+
+        leftHead->next = afterRight;
+
+        return head;
+    }
+};
