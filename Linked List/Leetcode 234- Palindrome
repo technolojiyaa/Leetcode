@@ -62,7 +62,7 @@
 
 
 
-//optimised solution suing O(n)
+//optimised solution using O(n)
 
 class Solution {
 public:
